@@ -213,23 +213,23 @@
 
 <header class="top">
   <div class="brand"><span class="mark">💌</span> NIM Postcard</div>
-  <div class="chip">Nimiq Mini Apps Competition · Cycle II</div>
+  <div class="chip" data-i18n="header.chip">Nimiq Mini Apps Competition · Cycle II</div>
 </header>
 
 <section class="hero wrap">
   <div class="hero-grid">
     <div>
-      <div class="eyebrow">Un mini app pour Nimiq Pay</div>
-      <h1>Une carte postale <em>signée</em>, avec ou sans petit cadeau NIM.</h1>
-      <p class="lead">NIM Postcard transforme un simple message en objet qu'on garde : tu écris quelques lignes, tu choisis un décor, tu glisses (ou non) un peu de NIM dedans, et tu scelles le tout avec la signature native de ton wallet. Ton ami reçoit une vraie carte, pas juste un message de plus.</p>
+      <div class="eyebrow" data-i18n="hero.eyebrow">Un mini app pour Nimiq Pay</div>
+      <h1 data-i18n="hero.title">Une carte postale <em>signée</em>, avec ou sans petit cadeau NIM.</h1>
+      <p class="lead" data-i18n="hero.lead">NIM Postcard transforme un simple message en objet qu'on garde : tu écris quelques lignes, tu choisis un décor, tu glisses (ou non) un peu de NIM dedans, et tu scelles le tout avec la signature native de ton wallet. Ton ami reçoit une vraie carte, pas juste un message de plus.</p>
       <div class="hero-cta">
-        <a href="#demo" class="btn btn-primary">💌 Essayer la démo</a>
-        <a href="#faq" class="btn btn-ghost">Qui paie quoi ?</a>
+        <a href="#demo" class="btn btn-primary" data-i18n="hero.ctaDemo">💌 Essayer la démo</a>
+        <a href="#faq" class="btn btn-ghost" data-i18n="hero.ctaFaq">Qui paie quoi ?</a>
       </div>
       <div class="stat-row">
-        <div class="stat"><b class="num">0 NIM</b><span>Frais, même avec un cadeau</span></div>
-        <div class="stat"><b class="num">1</b><span>Signature native par carte</span></div>
-        <div class="stat"><b class="num">100%</b><span>Optionnel, le cadeau NIM</span></div>
+        <div class="stat"><b class="num">0 NIM</b><span data-i18n="hero.stat1">Frais, même avec un cadeau</span></div>
+        <div class="stat"><b class="num">1</b><span data-i18n="hero.stat2">Signature native par carte</span></div>
+        <div class="stat"><b class="num">100%</b><span data-i18n="hero.stat3">Optionnel, le cadeau NIM</span></div>
       </div>
     </div>
 
@@ -237,11 +237,11 @@
       <div class="demo-card">
         <div class="demo-app-bar">
           <span class="app-name">💌 NIM Postcard</span>
-          <span class="status-pill" id="statusPill"><span class="dot"></span><span id="statusText">Mode démo</span></span>
+          <span class="status-pill" id="statusPill"><span class="dot"></span><span id="statusText" data-i18n="app.statusDemo">Mode démo</span></span>
         </div>
         <div class="tabs">
-          <button class="tab-btn active" id="tabWriteBtn">Écrire</button>
-          <button class="tab-btn" id="tabInboxBtn">Reçues</button>
+          <button class="tab-btn active" id="tabWriteBtn" data-i18n="app.tabWrite">Écrire</button>
+          <button class="tab-btn" id="tabInboxBtn" data-i18n="app.tabInbox">Reçues</button>
         </div>
 
         <!-- WRITE SCREEN -->
@@ -249,41 +249,41 @@
           <div class="postcard" id="postcardPreview" style="--scene: linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%);">
             <span class="postmark stamp-font" id="postmark">NIMIQ · 11 SEP</span>
             <span class="stamp">🪶</span>
-            <p class="msg-preview empty" id="msgPreview">Ton message apparaîtra ici…</p>
+            <p class="msg-preview empty" id="msgPreview" data-i18n="app.msgPlaceholder">Ton message apparaîtra ici…</p>
           </div>
 
           <div class="scene-picker" id="scenePicker">
-            <button class="scene-dot active" data-scene="linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)" style="background:linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)" aria-label="Décor océan"></button>
-            <button class="scene-dot" data-scene="linear-gradient(135deg, #c8890a 0%, #a3293a 65%, #7f1e2c 100%)" style="background:linear-gradient(135deg, #c8890a 0%, #a3293a 65%, #7f1e2c 100%)" aria-label="Décor couchant"></button>
-            <button class="scene-dot" data-scene="linear-gradient(135deg, #6b5b95 0%, #392f52 100%)" style="background:linear-gradient(135deg, #6b5b95 0%, #392f52 100%)" aria-label="Décor nuit"></button>
-            <button class="scene-dot" data-scene="linear-gradient(135deg, #2f9e57 0%, #17513a 100%)" style="background:linear-gradient(135deg, #2f9e57 0%, #17513a 100%)" aria-label="Décor forêt"></button>
+            <button class="scene-dot active" data-scene="linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)" style="background:linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)" data-i18n-aria="app.sceneOcean" aria-label="Décor océan"></button>
+            <button class="scene-dot" data-scene="linear-gradient(135deg, #c8890a 0%, #a3293a 65%, #7f1e2c 100%)" style="background:linear-gradient(135deg, #c8890a 0%, #a3293a 65%, #7f1e2c 100%)" data-i18n-aria="app.sceneSunset" aria-label="Décor couchant"></button>
+            <button class="scene-dot" data-scene="linear-gradient(135deg, #6b5b95 0%, #392f52 100%)" style="background:linear-gradient(135deg, #6b5b95 0%, #392f52 100%)" data-i18n-aria="app.sceneNight" aria-label="Décor nuit"></button>
+            <button class="scene-dot" data-scene="linear-gradient(135deg, #2f9e57 0%, #17513a 100%)" style="background:linear-gradient(135deg, #2f9e57 0%, #17513a 100%)" data-i18n-aria="app.sceneForest" aria-label="Décor forêt"></button>
           </div>
 
           <div class="field">
-            <label for="msgInput">Ton message</label>
-            <textarea id="msgInput" rows="3" maxlength="160" placeholder="Écris quelques mots…"></textarea>
+            <label for="msgInput" data-i18n="app.msgLabel">Ton message</label>
+            <textarea id="msgInput" rows="3" maxlength="160" data-i18n-placeholder="app.msgInputPlaceholder" placeholder="Écris quelques mots…"></textarea>
           </div>
           <div class="field">
-            <label for="toInput">Destinataire</label>
-            <input type="text" id="toInput" placeholder="Prénom de ton ami" value="Mila" />
+            <label for="toInput" data-i18n="app.toLabel">Destinataire</label>
+            <input type="text" id="toInput" data-i18n-placeholder="app.toPlaceholder" placeholder="Prénom de ton ami" value="Mila" />
           </div>
 
           <div class="gift-row">
-            <span class="gift-label">Ajouter un petit cadeau NIM</span>
+            <span class="gift-label" data-i18n="app.giftLabel">Ajouter un petit cadeau NIM</span>
             <input type="number" class="gift-amt" id="giftAmt" value="5" min="0" step="1" disabled />
-            <button class="gift-toggle" id="giftToggle" aria-pressed="false" aria-label="Activer le cadeau NIM"></button>
+            <button class="gift-toggle" id="giftToggle" aria-pressed="false" data-i18n-aria="app.giftToggleAria" aria-label="Activer le cadeau NIM"></button>
           </div>
 
-          <button class="send-btn" id="sendBtn">🖋️ Signer &amp; envoyer</button>
-          <p class="helptext">La signature (<code>sign()</code>) prouve que la carte vient bien de toi. Le cadeau NIM, s'il est activé, part directement de ton wallet au moment de l'envoi — aucune cagnotte intermédiaire.</p>
+          <button class="send-btn" id="sendBtn" data-i18n="app.sendBtn">🖋️ Signer &amp; envoyer</button>
+          <p class="helptext" data-i18n="app.sendHelptext">La signature (<code>sign()</code>) prouve que la carte vient bien de toi. Le cadeau NIM, s'il est activé, part directement de ton wallet au moment de l'envoi — aucune cagnotte intermédiaire.</p>
         </div>
 
         <!-- INBOX SCREEN -->
         <div id="screenInbox" style="display:none;">
           <div class="inbox-list" id="inboxList">
-            <p class="inbox-empty">Aucune carte reçue pour l'instant.</p>
+            <p class="inbox-empty" data-i18n="app.inboxEmpty">Aucune carte reçue pour l'instant.</p>
           </div>
-          <button class="simulate-btn" id="simulateBtn">➕ Simuler la réception d'une carte</button>
+          <button class="simulate-btn" id="simulateBtn" data-i18n="app.simulateBtn">➕ Simuler la réception d'une carte</button>
         </div>
       </div>
     </div>
@@ -293,25 +293,25 @@
 <section class="section" id="how">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Comment ça marche</div>
-      <h2>Écrire, sceller, envoyer</h2>
-      <p>Pensé pour dire "merci", "bon anniversaire", ou "je pense à toi" — avec un peu plus de poids qu'un message classique.</p>
+      <div class="eyebrow" data-i18n="how.eyebrow">Comment ça marche</div>
+      <h2 data-i18n="how.title">Écrire, sceller, envoyer</h2>
+      <p data-i18n="how.lead">Pensé pour dire "merci", "bon anniversaire", ou "je pense à toi" — avec un peu plus de poids qu'un message classique.</p>
     </div>
     <div class="steps">
       <div class="step">
         <span class="n">01</span>
-        <h3>Tu écris ta carte</h3>
-        <p>Un message court, un décor parmi quelques choix, et un cadeau NIM optionnel — jamais obligatoire.</p>
+        <h3 data-i18n="how.step1Title">Tu écris ta carte</h3>
+        <p data-i18n="how.step1Body">Un message court, un décor parmi quelques choix, et un cadeau NIM optionnel — jamais obligatoire.</p>
       </div>
       <div class="step">
         <span class="n">02</span>
-        <h3>Tu la signes</h3>
-        <p>Une signature native via ton wallet Nimiq Pay authentifie la carte comme venant vraiment de toi, sans mot de passe à retaper.</p>
+        <h3 data-i18n="how.step2Title">Tu la signes</h3>
+        <p data-i18n="how.step2Body">Une signature native via ton wallet Nimiq Pay authentifie la carte comme venant vraiment de toi, sans mot de passe à retaper.</p>
       </div>
       <div class="step">
         <span class="n">03</span>
-        <h3>Elle arrive, scellée</h3>
-        <p>Ton ami reçoit la carte avec son cachet de la poste numérique et, si tu l'as choisi, son petit cadeau NIM déjà dans son wallet.</p>
+        <h3 data-i18n="how.step3Title">Elle arrive, scellée</h3>
+        <p data-i18n="how.step3Body">Ton ami reçoit la carte avec son cachet de la poste numérique et, si tu l'as choisi, son petit cadeau NIM déjà dans son wallet.</p>
       </div>
     </div>
   </div>
@@ -320,22 +320,22 @@
 <section class="section" id="faq">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Qui paie quoi ?</div>
-      <h2>Le cadeau est toujours optionnel</h2>
-      <p>Une carte sans cadeau ne coûte rien à personne — voici ce qui se passe exactement.</p>
+      <div class="eyebrow" data-i18n="faq.eyebrow">Qui paie quoi ?</div>
+      <h2 data-i18n="faq.title">Le cadeau est toujours optionnel</h2>
+      <p data-i18n="faq.lead">Une carte sans cadeau ne coûte rien à personne — voici ce qui se passe exactement.</p>
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <h3>Le cadeau NIM est-il obligatoire ?</h3>
-        <p><b>Non, jamais.</b> Le curseur "Ajouter un petit cadeau NIM" est désactivé par défaut. Une carte peut être purement un message signé, sans aucune transaction.</p>
+        <h3 data-i18n="faq.q1">Le cadeau NIM est-il obligatoire ?</h3>
+        <p data-i18n="faq.a1"><b>Non, jamais.</b> Le curseur "Ajouter un petit cadeau NIM" est désactivé par défaut. Une carte peut être purement un message signé, sans aucune transaction.</p>
       </div>
       <div class="faq-item">
-        <h3>Si j'ajoute un cadeau, qui paie et à quel moment ?</h3>
-        <p><b>Toi</b>, au moment où tu appuies sur "Signer &amp; envoyer" — l'envoi part directement de ton wallet vers celui du destinataire, avec ta confirmation native. Rien n'est mis de côté avant.</p>
+        <h3 data-i18n="faq.q2">Si j'ajoute un cadeau, qui paie et à quel moment ?</h3>
+        <p data-i18n="faq.a2"><b>Toi</b>, au moment où tu appuies sur "Signer &amp; envoyer" — l'envoi part directement de ton wallet vers celui du destinataire, avec ta confirmation native. Rien n'est mis de côté avant.</p>
       </div>
       <div class="faq-item">
-        <h3>Et les frais de réseau ?</h3>
-        <p>À <b>0 dans l'immense majorité des cas</b> — Nimiq est feeless par design. La signature du message, elle, ne coûte jamais rien : ce n'est pas une transaction, juste une preuve cryptographique.</p>
+        <h3 data-i18n="faq.q3">Et les frais de réseau ?</h3>
+        <p data-i18n="faq.a3">À <b>0 dans l'immense majorité des cas</b> — Nimiq est feeless par design. La signature du message, elle, ne coûte jamais rien : ce n'est pas une transaction, juste une preuve cryptographique.</p>
       </div>
     </div>
   </div>
@@ -344,20 +344,20 @@
 <section class="section">
   <div class="wrap tech">
     <div>
-      <div class="eyebrow">Intégration technique</div>
-      <h2>Signature native, pas de mot de passe</h2>
-      <p>Cette démo tourne en mode simulé hors de Nimiq Pay. À l'intérieur, elle bascule sur les vrais appels du SDK — même code, vraie blockchain.</p>
+      <div class="eyebrow" data-i18n="tech.eyebrow">Intégration technique</div>
+      <h2 data-i18n="tech.title">Signature native, pas de mot de passe</h2>
+      <p data-i18n="tech.lead">Cette démo tourne en mode simulé hors de Nimiq Pay. À l'intérieur, elle bascule sur les vrais appels du SDK — même code, vraie blockchain.</p>
       <ul>
-        <li>Détection automatique de <code>window.nimiqPay</code> au chargement</li>
-        <li>Message authentifié via <code>sign()</code></li>
-        <li>Cadeau optionnel envoyé via <code>sendBasicTransactionWithData()</code></li>
-        <li>Repli gracieux en mode démo hors de Nimiq Pay</li>
+        <li data-i18n="tech.li1">Détection automatique de <code>window.nimiqPay</code> au chargement</li>
+        <li data-i18n="tech.li2">Message authentifié via <code>sign()</code></li>
+        <li data-i18n="tech.li3">Cadeau optionnel envoyé via <code>sendBasicTransactionWithData()</code></li>
+        <li data-i18n="tech.li4">Repli gracieux en mode démo hors de Nimiq Pay</li>
       </ul>
     </div>
     <div class="code-panel">
       <div class="code-tabbar">
-        <button class="active" id="codeTabSign">Signature</button>
-        <button id="codeTabGift">Cadeau NIM</button>
+        <button class="active" id="codeTabSign" data-i18n="tech.tabSign">Signature</button>
+        <button id="codeTabGift" data-i18n="tech.tabGift">Cadeau NIM</button>
       </div>
       <pre class="code" id="codeSign"><span class="c">// Authentifier la carte avec la clé du wallet</span>
 <span class="k">import</span> { init } <span class="k">from</span> <span class="s">'@nimiq/mini-app-sdk'</span>
@@ -381,12 +381,12 @@
   <div class="wrap footer-grid">
     <div>
       <div class="brand">💌 NIM Postcard</div>
-      <p>Projet conçu pour la Nimiq Mini Apps Competition, Cycle II (24 août – 18 septembre 2026). Prototype ouvert, sans backend, pensé pour être hébergé et chargé dans Nimiq Pay.</p>
+      <p data-i18n="footer.desc">Projet conçu pour la Nimiq Mini Apps Competition, Cycle II (24 août – 18 septembre 2026). Prototype ouvert, sans backend, pensé pour être hébergé et chargé dans Nimiq Pay.</p>
     </div>
     <div class="meta">
-      <div>Réseau : Nimiq (NIM)</div>
+      <div><span data-i18n="footer.network">Réseau</span> : Nimiq (NIM)</div>
       <div>SDK : @nimiq/mini-app-sdk</div>
-      <div>Statut : démo interactive</div>
+      <div><span data-i18n="footer.status">Statut</span> : <span data-i18n="footer.statusValue">démo interactive</span></div>
     </div>
   </div>
 </footer>
@@ -394,6 +394,160 @@
 <script>
 (function(){
   "use strict";
+
+  // ---------- i18n ----------
+  var SUPPORTED_LANGS = ['fr', 'en'];
+  var T = {
+    fr: {
+      'header.chip': 'Nimiq Mini Apps Competition · Cycle II',
+      'hero.eyebrow': 'Un mini app pour Nimiq Pay',
+      'hero.title': 'Une carte postale <em>signée</em>, avec ou sans petit cadeau NIM.',
+      'hero.lead': 'NIM Postcard transforme un simple message en objet qu\'on garde : tu écris quelques lignes, tu choisis un décor, tu glisses (ou non) un peu de NIM dedans, et tu scelles le tout avec la signature native de ton wallet. Ton ami reçoit une vraie carte, pas juste un message de plus.',
+      'hero.ctaDemo': '💌 Essayer la démo',
+      'hero.ctaFaq': 'Qui paie quoi ?',
+      'hero.stat1': 'Frais, même avec un cadeau',
+      'hero.stat2': 'Signature native par carte',
+      'hero.stat3': 'Optionnel, le cadeau NIM',
+      'app.statusDemo': 'Mode démo',
+      'app.statusLive': 'Connecté à Nimiq Pay',
+      'app.tabWrite': 'Écrire',
+      'app.tabInbox': 'Reçues',
+      'app.msgPlaceholder': 'Ton message apparaîtra ici…',
+      'app.sceneOcean': 'Décor océan',
+      'app.sceneSunset': 'Décor couchant',
+      'app.sceneNight': 'Décor nuit',
+      'app.sceneForest': 'Décor forêt',
+      'app.msgLabel': 'Ton message',
+      'app.msgInputPlaceholder': 'Écris quelques mots…',
+      'app.toLabel': 'Destinataire',
+      'app.toPlaceholder': 'Prénom de ton ami',
+      'app.giftLabel': 'Ajouter un petit cadeau NIM',
+      'app.giftToggleAria': 'Activer le cadeau NIM',
+      'app.sendBtn': '🖋️ Signer &amp; envoyer',
+      'app.sendHelptext': 'La signature (<code>sign()</code>) prouve que la carte vient bien de toi. Le cadeau NIM, s\'il est activé, part directement de ton wallet au moment de l\'envoi — aucune cagnotte intermédiaire.',
+      'app.inboxEmpty': 'Aucune carte reçue pour l\'instant.',
+      'app.simulateBtn': '➕ Simuler la réception d\'une carte',
+      'app.sentTo': 'Carte envoyée à',
+      'app.defaultFriend': 'ton ami',
+      'how.eyebrow': 'Comment ça marche',
+      'how.title': 'Écrire, sceller, envoyer',
+      'how.lead': 'Pensé pour dire "merci", "bon anniversaire", ou "je pense à toi" — avec un peu plus de poids qu\'un message classique.',
+      'how.step1Title': 'Tu écris ta carte',
+      'how.step1Body': 'Un message court, un décor parmi quelques choix, et un cadeau NIM optionnel — jamais obligatoire.',
+      'how.step2Title': 'Tu la signes',
+      'how.step2Body': 'Une signature native via ton wallet Nimiq Pay authentifie la carte comme venant vraiment de toi, sans mot de passe à retaper.',
+      'how.step3Title': 'Elle arrive, scellée',
+      'how.step3Body': 'Ton ami reçoit la carte avec son cachet de la poste numérique et, si tu l\'as choisi, son petit cadeau NIM déjà dans son wallet.',
+      'faq.eyebrow': 'Qui paie quoi ?',
+      'faq.title': 'Le cadeau est toujours optionnel',
+      'faq.lead': 'Une carte sans cadeau ne coûte rien à personne — voici ce qui se passe exactement.',
+      'faq.q1': 'Le cadeau NIM est-il obligatoire ?',
+      'faq.a1': '<b>Non, jamais.</b> Le curseur "Ajouter un petit cadeau NIM" est désactivé par défaut. Une carte peut être purement un message signé, sans aucune transaction.',
+      'faq.q2': 'Si j\'ajoute un cadeau, qui paie et à quel moment ?',
+      'faq.a2': '<b>Toi</b>, au moment où tu appuies sur "Signer &amp; envoyer" — l\'envoi part directement de ton wallet vers celui du destinataire, avec ta confirmation native. Rien n\'est mis de côté avant.',
+      'faq.q3': 'Et les frais de réseau ?',
+      'faq.a3': 'À <b>0 dans l\'immense majorité des cas</b> — Nimiq est feeless par design. La signature du message, elle, ne coûte jamais rien : ce n\'est pas une transaction, juste une preuve cryptographique.',
+      'tech.eyebrow': 'Intégration technique',
+      'tech.title': 'Signature native, pas de mot de passe',
+      'tech.lead': 'Cette démo tourne en mode simulé hors de Nimiq Pay. À l\'intérieur, elle bascule sur les vrais appels du SDK — même code, vraie blockchain.',
+      'tech.li1': 'Détection automatique de <code>window.nimiqPay</code> au chargement',
+      'tech.li2': 'Message authentifié via <code>sign()</code>',
+      'tech.li3': 'Cadeau optionnel envoyé via <code>sendBasicTransactionWithData()</code>',
+      'tech.li4': 'Repli gracieux en mode démo hors de Nimiq Pay',
+      'tech.tabSign': 'Signature',
+      'tech.tabGift': 'Cadeau NIM',
+      'footer.desc': 'Projet conçu pour la Nimiq Mini Apps Competition, Cycle II (24 août – 18 septembre 2026). Prototype ouvert, sans backend, pensé pour être hébergé et chargé dans Nimiq Pay.',
+      'footer.network': 'Réseau',
+      'footer.status': 'Statut',
+      'footer.statusValue': 'démo interactive'
+    },
+    en: {
+      'header.chip': 'Nimiq Mini Apps Competition · Cycle II',
+      'hero.eyebrow': 'A mini app for Nimiq Pay',
+      'hero.title': 'A <em>signed</em> postcard, with or without a small NIM gift.',
+      'hero.lead': 'NIM Postcard turns a simple message into something worth keeping: write a few lines, pick a scene, slip in some NIM or not, and seal it all with your wallet\'s native signature. Your friend gets a real card, not just another message.',
+      'hero.ctaDemo': '💌 Try the demo',
+      'hero.ctaFaq': 'Who pays for what?',
+      'hero.stat1': 'Fees, even with a gift',
+      'hero.stat2': 'Native signature per card',
+      'hero.stat3': 'Optional, the NIM gift',
+      'app.statusDemo': 'Demo mode',
+      'app.statusLive': 'Connected to Nimiq Pay',
+      'app.tabWrite': 'Write',
+      'app.tabInbox': 'Received',
+      'app.msgPlaceholder': 'Your message will appear here…',
+      'app.sceneOcean': 'Ocean scene',
+      'app.sceneSunset': 'Sunset scene',
+      'app.sceneNight': 'Night scene',
+      'app.sceneForest': 'Forest scene',
+      'app.msgLabel': 'Your message',
+      'app.msgInputPlaceholder': 'Write a few words…',
+      'app.toLabel': 'Recipient',
+      'app.toPlaceholder': 'Your friend\'s name',
+      'app.giftLabel': 'Add a small NIM gift',
+      'app.giftToggleAria': 'Enable the NIM gift',
+      'app.sendBtn': '🖋️ Sign &amp; send',
+      'app.sendHelptext': 'The signature (<code>sign()</code>) proves the card really comes from you. The NIM gift, if enabled, leaves your wallet directly at send time — no intermediate pool.',
+      'app.inboxEmpty': 'No card received yet.',
+      'app.simulateBtn': '➕ Simulate receiving a card',
+      'app.sentTo': 'Card sent to',
+      'app.defaultFriend': 'your friend',
+      'how.eyebrow': 'How it works',
+      'how.title': 'Write, seal, send',
+      'how.lead': 'Built for saying "thanks", "happy birthday", or "thinking of you" — with a bit more weight than a regular message.',
+      'how.step1Title': 'You write your card',
+      'how.step1Body': 'A short message, a scene to pick from, and an optional NIM gift — never required.',
+      'how.step2Title': 'You sign it',
+      'how.step2Body': 'A native signature through your Nimiq Pay wallet authenticates the card as truly coming from you, no password to retype.',
+      'how.step3Title': 'It arrives, sealed',
+      'how.step3Body': 'Your friend receives the card with its digital postmark and, if you chose to, their small NIM gift already in their wallet.',
+      'faq.eyebrow': 'Who pays for what?',
+      'faq.title': 'The gift is always optional',
+      'faq.lead': 'A card with no gift costs no one anything — here\'s exactly what happens.',
+      'faq.q1': 'Is the NIM gift mandatory?',
+      'faq.a1': '<b>No, never.</b> The "Add a small NIM gift" toggle is off by default. A card can be purely a signed message, with no transaction at all.',
+      'faq.q2': 'If I add a gift, who pays and when?',
+      'faq.a2': '<b>You</b>, the moment you tap "Sign & send" — the send goes straight from your wallet to the recipient\'s, with your native confirmation. Nothing is set aside beforehand.',
+      'faq.q3': 'What about network fees?',
+      'faq.a3': '<b>0 in the vast majority of cases</b> — Nimiq is feeless by design. Signing the message itself never costs anything: it\'s not a transaction, just a cryptographic proof.',
+      'tech.eyebrow': 'Technical integration',
+      'tech.title': 'Native signature, no password',
+      'tech.lead': 'This demo runs in simulated mode outside Nimiq Pay. Inside, it switches to real SDK calls — same code, real blockchain.',
+      'tech.li1': 'Automatic detection of <code>window.nimiqPay</code> on load',
+      'tech.li2': 'Message authenticated via <code>sign()</code>',
+      'tech.li3': 'Optional gift sent via <code>sendBasicTransactionWithData()</code>',
+      'tech.li4': 'Graceful fallback to demo mode outside Nimiq Pay',
+      'tech.tabSign': 'Signature',
+      'tech.tabGift': 'NIM gift',
+      'footer.desc': 'Built for the Nimiq Mini Apps Competition, Cycle II (August 24 – September 18, 2026). Open prototype, no backend, designed to be hosted and loaded inside Nimiq Pay.',
+      'footer.network': 'Network',
+      'footer.status': 'Status',
+      'footer.statusValue': 'interactive demo'
+    }
+  };
+
+  function detectLang(){
+    var raw = window.nimiqPay && window.nimiqPay.language;
+    return SUPPORTED_LANGS.indexOf(raw) !== -1 ? raw : 'fr';
+  }
+  var currentLang = detectLang();
+
+  function t(key){
+    return (T[currentLang] && T[currentLang][key]) || T.fr[key] || key;
+  }
+
+  function applyStaticTranslations(){
+    document.documentElement.lang = currentLang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      el.innerHTML = t(el.getAttribute('data-i18n'));
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+    });
+  }
 
   var state = { scene: 'linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)', giftOn: false, inbox: [] };
 
@@ -448,7 +602,7 @@
 
   function refreshPreview(){
     var v = msgInput.value.trim();
-    msgPreview.textContent = v || 'Ton message apparaîtra ici…';
+    msgPreview.textContent = v || t('app.msgPlaceholder');
     msgPreview.classList.toggle('empty', !v);
     sendBtn.disabled = v.length === 0;
   }
@@ -487,14 +641,14 @@
 
   sendBtn.addEventListener('click', function(){
     if (sendBtn.disabled) return;
-    var to = toInput.value.trim() || 'ton ami';
+    var to = toInput.value.trim() || t('app.defaultFriend');
     var msg = msgInput.value.trim();
     var gift = state.giftOn ? Math.max(0, parseFloat(giftAmt.value) || 0) : 0;
     burstConfetti(80);
-    sendBtn.textContent = '✅ Carte envoyée à ' + to + (gift ? ' (+' + gift + ' NIM)' : '');
+    sendBtn.textContent = '✅ ' + t('app.sentTo') + ' ' + to + (gift ? ' (+' + gift + ' NIM)' : '');
     sendBtn.disabled = true;
     setTimeout(function(){
-      sendBtn.textContent = '🖋️ Signer & envoyer';
+      sendBtn.innerHTML = t('app.sendBtn');
       sendBtn.disabled = msgInput.value.trim().length === 0;
     }, 2600);
   });
@@ -549,13 +703,14 @@
     import('https://cdn.jsdelivr.net/npm/@nimiq/mini-app-sdk/+esm').then(function(mod){
       return mod.init();
     }).then(function(){
-      $('statusText').textContent = 'Connecté à Nimiq Pay';
+      $('statusText').textContent = t('app.statusLive');
       $('statusPill').classList.add('live');
     }).catch(function(err){
       console.warn('NIM Postcard: Nimiq Pay SDK unavailable, staying in demo mode.', err);
     });
   }
   tryConnectNimiqPay();
+  applyStaticTranslations();
 })();
 </script>
 </body>
