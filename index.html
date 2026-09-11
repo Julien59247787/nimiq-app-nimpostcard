@@ -698,9 +698,20 @@
       return;
     }
 
-    // No gift, or not connected to a real wallet: nothing to actually send
-    // (a message-only card has no on-chain effect), so just confirm.
+    // No gift: nothing to send, but if connected, still get a real signature
+    // so the "authenticated via sign()" claim in the FAQ is actually true.
     sendBtn.disabled = true;
+    if (state.nimiq){
+      sendBtn.textContent = t('app.signing');
+      state.nimiq.sign(msg || to).then(function(){
+        finishSend(to, gift);
+      }).catch(function(err){
+        console.warn('NIM Postcard: signing failed.', err);
+        sendBtn.textContent = t('app.sendFailed');
+        setTimeout(resetSendBtn, 2600);
+      });
+      return;
+    }
     finishSend(to, gift);
   });
 
