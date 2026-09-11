@@ -273,6 +273,10 @@
             <input type="number" class="gift-amt" id="giftAmt" value="5" min="0" step="1" disabled />
             <button class="gift-toggle" id="giftToggle" aria-pressed="false" data-i18n-aria="app.giftToggleAria" aria-label="Activer le cadeau NIM"></button>
           </div>
+          <div class="field" id="giftAddrField" style="display:none;">
+            <label for="giftAddr" data-i18n="app.giftAddrLabel">Adresse Nimiq du destinataire</label>
+            <input type="text" id="giftAddr" data-i18n-placeholder="app.giftAddrPlaceholder" placeholder="NQ07 0000 0000 0000 0000 0000 0000 0000 0000" />
+          </div>
 
           <button class="send-btn" id="sendBtn" data-i18n="app.sendBtn">🖋️ Signer &amp; envoyer</button>
           <p class="helptext" data-i18n="app.sendHelptext">La signature (<code>sign()</code>) prouve que la carte vient bien de toi. Le cadeau NIM, s'il est activé, part directement de ton wallet au moment de l'envoi — aucune cagnotte intermédiaire.</p>
@@ -428,6 +432,11 @@
       'app.inboxEmpty': 'Aucune carte reçue pour l\'instant.',
       'app.simulateBtn': '➕ Simuler la réception d\'une carte',
       'app.sentTo': 'Carte envoyée à',
+      'app.giftAddrLabel': 'Adresse Nimiq du destinataire',
+      'app.giftAddrPlaceholder': 'NQ07 0000 0000 0000 0000 0000 0000 0000 0000',
+      'app.giftAddrRequired': 'Indique l\'adresse Nimiq de ton ami pour lui envoyer le cadeau.',
+      'app.sendFailed': 'L\'envoi a échoué ou a été annulé — réessaie.',
+      'app.signing': 'Signature en cours…',
       'app.defaultFriend': 'ton ami',
       'how.eyebrow': 'Comment ça marche',
       'how.title': 'Écrire, sceller, envoyer',
@@ -491,6 +500,11 @@
       'app.inboxEmpty': 'No card received yet.',
       'app.simulateBtn': '➕ Simulate receiving a card',
       'app.sentTo': 'Card sent to',
+      'app.giftAddrLabel': 'Recipient\'s Nimiq address',
+      'app.giftAddrPlaceholder': 'NQ07 0000 0000 0000 0000 0000 0000 0000 0000',
+      'app.giftAddrRequired': 'Enter your friend\'s Nimiq address to send the gift.',
+      'app.sendFailed': 'The send failed or was cancelled — try again.',
+      'app.signing': 'Signing…',
       'app.defaultFriend': 'your friend',
       'how.eyebrow': 'How it works',
       'how.title': 'Write, seal, send',
@@ -549,7 +563,7 @@
     });
   }
 
-  var state = { scene: 'linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)', giftOn: false, inbox: [] };
+  var state = { scene: 'linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)', giftOn: false, inbox: [], nimiq: null };
 
   var SENDERS = ["Nimiqnaut42","AlbatrossFan","LunaLover","GarnetGlow","ZeroFeeZoe","BlockBird",
     "StakerSam","HodlHanna","ValidatorVic","SwiftShard","ConsensusCat","OneSecOllie"];
@@ -618,11 +632,13 @@
     postcardPreview.style.setProperty('--scene', state.scene);
   });
 
+  var giftAddrField = $('giftAddrField'), giftAddr = $('giftAddr');
   giftToggle.addEventListener('click', function(){
     state.giftOn = !state.giftOn;
     giftToggle.classList.toggle('on', state.giftOn);
     giftToggle.setAttribute('aria-pressed', String(state.giftOn));
     giftAmt.disabled = !state.giftOn;
+    giftAddrField.style.display = state.giftOn ? 'block' : 'none';
   });
 
   function pushInboxItem(from, snippet, scene, gift){
@@ -639,18 +655,53 @@
     inboxList.insertBefore(item, inboxList.firstChild);
   }
 
+  function resetSendBtn(){
+    sendBtn.innerHTML = t('app.sendBtn');
+    sendBtn.disabled = msgInput.value.trim().length === 0;
+  }
+
+  function finishSend(to, gift){
+    burstConfetti(80);
+    sendBtn.textContent = '✅ ' + t('app.sentTo') + ' ' + to + (gift ? ' (+' + gift + ' NIM)' : '');
+    setTimeout(resetSendBtn, 2600);
+  }
+
   sendBtn.addEventListener('click', function(){
     if (sendBtn.disabled) return;
     var to = toInput.value.trim() || t('app.defaultFriend');
     var msg = msgInput.value.trim();
     var gift = state.giftOn ? Math.max(0, parseFloat(giftAmt.value) || 0) : 0;
-    burstConfetti(80);
-    sendBtn.textContent = '✅ ' + t('app.sentTo') + ' ' + to + (gift ? ' (+' + gift + ' NIM)' : '');
+
+    // Real path: connected to Nimiq Pay and a gift is being sent — this is
+    // the only case where actual funds move, so it needs a real recipient
+    // address and a real sendBasicTransactionWithData() call.
+    if (state.nimiq && gift > 0){
+      var addr = giftAddr.value.trim();
+      if (!addr){
+        giftAddr.style.borderColor = 'var(--garnet)';
+        alert(t('app.giftAddrRequired'));
+        return;
+      }
+      sendBtn.disabled = true;
+      sendBtn.textContent = t('app.signing');
+      state.nimiq.sendBasicTransactionWithData({
+        recipient: addr,
+        value: Math.round(gift * 100000),
+        data: '💌 NIM Postcard'
+      }).then(function(){
+        finishSend(to, gift);
+      }).catch(function(err){
+        console.warn('NIM Postcard: gift send failed.', err);
+        sendBtn.textContent = t('app.sendFailed');
+        setTimeout(resetSendBtn, 2600);
+      });
+      return;
+    }
+
+    // No gift, or not connected to a real wallet: nothing to actually send
+    // (a message-only card has no on-chain effect), so just confirm.
     sendBtn.disabled = true;
-    setTimeout(function(){
-      sendBtn.innerHTML = t('app.sendBtn');
-      sendBtn.disabled = msgInput.value.trim().length === 0;
-    }, 2600);
+    finishSend(to, gift);
   });
 
   simulateBtn.addEventListener('click', function(){
@@ -702,7 +753,8 @@
     if (!window.nimiqPay){ return; }
     import('https://cdn.jsdelivr.net/npm/@nimiq/mini-app-sdk/+esm').then(function(mod){
       return mod.init();
-    }).then(function(){
+    }).then(function(nimiq){
+      state.nimiq = nimiq;
       $('statusText').textContent = t('app.statusLive');
       $('statusPill').classList.add('live');
     }).catch(function(err){
