@@ -99,6 +99,10 @@
   .status-pill{ font-size:.65rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:5px 9px; border-radius:999px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-faint); display:flex; align-items:center; gap:5px; }
   .status-pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--text-faint); }
   .status-pill.live .dot{ background:var(--good); box-shadow:0 0 0 3px color-mix(in srgb, var(--good) 25%, transparent); }
+  .hub-connect-btn{ font-size:.65rem; font-weight:700; letter-spacing:.02em; padding:5px 10px; border-radius:999px; background:linear-gradient(135deg, var(--teal) 0%, var(--teal-strong) 100%); border:none; color:#052622; cursor:pointer; font-family:'Sora',sans-serif; }
+  .hub-connect-btn[hidden]{ display:none; }
+  .hub-connect-btn:hover{ opacity:.88; }
+  .hub-connect-btn:disabled{ opacity:.6; cursor:default; }
   .status-pill.live{ color:var(--good); }
 
   .tabs{ display:flex; gap:6px; padding:0 6px 14px; }
@@ -234,6 +238,7 @@
     *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@nimiq/hub-api@1.14.0/dist/standalone/HubApi.standalone.umd.js"></script>
 </head>
 <body>
 
@@ -266,6 +271,7 @@
         <div class="demo-app-bar">
           <span class="app-name">💌 NIM Postcard</span>
           <span class="status-pill" id="statusPill"><span class="dot"></span><span id="statusText" data-i18n="app.statusDemo">Mode démo</span></span>
+          <button type="button" class="hub-connect-btn" id="hubConnectBtn" data-i18n="app.hubConnect" hidden>Se connecter</button>
           <div class="lang-dropdown" id="lang-dropdown">
             <button type="button" class="lang-dropdown-trigger" id="lang-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Choix de la langue">
               <span class="lang-flag-icon" id="lang-dropdown-current-flag"></span>
@@ -456,6 +462,9 @@
       'hero.stat3': 'Optionnel, le cadeau NIM',
       'app.statusDemo': 'Mode démo',
       'app.statusLive': 'Connecté à Nimiq Pay',
+      'app.hubConnect': 'Se connecter',
+      'app.hubConnecting': 'Connexion…',
+      'app.hubConnectError': 'La connexion au wallet a échoué.',
       'app.tabWrite': 'Écrire',
       'app.tabInbox': 'Reçues',
       'app.msgPlaceholder': 'Ton message apparaîtra ici…',
@@ -530,6 +539,9 @@
       'hero.stat3': 'Optional, the NIM gift',
       'app.statusDemo': 'Demo mode',
       'app.statusLive': 'Connected to Nimiq Pay',
+      'app.hubConnect': 'Connect',
+      'app.hubConnecting': 'Connecting…',
+      'app.hubConnectError': 'Wallet connection failed.',
       'app.tabWrite': 'Write',
       'app.tabInbox': 'Received',
       'app.msgPlaceholder': 'Your message will appear here…',
@@ -685,7 +697,7 @@
     });
   }
 
-  var state = { scene: 'linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)', giftOn: false, inbox: [], nimiq: null };
+  var state = { scene: 'linear-gradient(135deg, #1c8f83 0%, #17766c 60%, #0f5c53 100%)', giftOn: false, inbox: [], nimiq: null, hub: null };
 
   var SENDERS = ["Nimiqnaut42","AlbatrossFan","LunaLover","GarnetGlow","ZeroFeeZoe","BlockBird",
     "StakerSam","HodlHanna","ValidatorVic","SwiftShard","ConsensusCat","OneSecOllie"];
@@ -794,10 +806,10 @@
     var msg = msgInput.value.trim();
     var gift = state.giftOn ? Math.max(0, parseFloat(giftAmt.value) || 0) : 0;
 
-    // Real path: connected to Nimiq Pay and a gift is being sent — this is
-    // the only case where actual funds move, so it needs a real recipient
-    // address and a real sendBasicTransactionWithData() call.
-    if (state.nimiq && gift > 0){
+    // Real path: connected (Nimiq Pay or Nimiq Hub) and a gift is being
+    // sent — this is the only case where actual funds move, so it needs a
+    // real recipient address and a real send call.
+    if ((state.nimiq || state.hub) && gift > 0){
       var addr = giftAddr.value.trim();
       if (!addr){
         giftAddr.style.borderColor = 'var(--garnet)';
@@ -806,11 +818,11 @@
       }
       sendBtn.disabled = true;
       sendBtn.textContent = t('app.signing');
-      state.nimiq.sendBasicTransactionWithData({
-        recipient: addr,
-        value: Math.round(gift * 100000),
-        data: '💌 NIM Postcard'
-      }).then(function(){
+      var giftValueLuna = Math.round(gift * 100000);
+      var giftCall = state.nimiq
+        ? state.nimiq.sendBasicTransactionWithData({ recipient: addr, value: giftValueLuna, data: '💌 NIM Postcard' })
+        : state.hub.checkout({ appName: 'NIM Postcard', recipient: addr, value: giftValueLuna, extraData: '💌 NIM Postcard' });
+      giftCall.then(function(){
         finishSend(to, gift);
       }).catch(function(err){
         console.warn('NIM Postcard: gift send failed.', err);
@@ -883,7 +895,10 @@
 
   // ---------- real Nimiq Pay detection ----------
   function tryConnectNimiqPay(){
-    if (!window.nimiqPay){ return; }
+    if (!window.nimiqPay){
+      $('hubConnectBtn').hidden = false;
+      return;
+    }
     import('https://cdn.jsdelivr.net/npm/@nimiq/mini-app-sdk/+esm').then(function(mod){
       return mod.init();
     }).then(function(nimiq){
@@ -894,6 +909,32 @@
       console.warn('NIM Postcard: Nimiq Pay SDK unavailable, staying in demo mode.', err);
     });
   }
+
+  // ---------- Nimiq Hub connect (outside Nimiq Pay) ----------
+  var hubConnectBtn = $('hubConnectBtn');
+  hubConnectBtn.addEventListener('click', function(){
+    if (typeof HubApi === 'undefined'){
+      alert(t('app.hubConnectError'));
+      return;
+    }
+    hubConnectBtn.disabled = true;
+    hubConnectBtn.textContent = t('app.hubConnecting');
+    var hubApi = new HubApi('https://hub.nimiq.com');
+    hubApi.chooseAddress({ appName: 'NIM Postcard' }).then(function(chosen){
+      if (!chosen || !chosen.address) throw new Error('no address chosen');
+      state.hub = hubApi;
+      $('statusText').textContent = t('app.statusLive');
+      $('statusPill').classList.add('live');
+      hubConnectBtn.hidden = true;
+    }).catch(function(err){
+      console.warn('NIM Postcard: Hub connect failed.', err);
+      alert(t('app.hubConnectError') + (err && err.message ? ' (' + err.message + ')' : ''));
+    }).then(function(){
+      hubConnectBtn.disabled = false;
+      hubConnectBtn.textContent = t('app.hubConnect');
+    });
+  });
+
   setupLangSwitch();
   tryConnectNimiqPay();
   applyStaticTranslations();
